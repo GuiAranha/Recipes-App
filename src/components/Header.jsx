@@ -5,7 +5,7 @@ import profileIcon from '../images/profileIcon.svg';
 import seartchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-function Header({ pageName, needRender }) {
+function Header({ pageName, needRender, type }) {
   const history = useHistory();
   const [activateSearch, setActivateSearch] = useState(false);
 
@@ -37,7 +37,7 @@ function Header({ pageName, needRender }) {
         onClick={ () => setActivateSearch(!activateSearch) }
       />}
       {activateSearch
-      && <SearchBar />}
+      && <SearchBar type={ type } />}
 
     </header>
   );
