@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import seartchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
-function Header({ pageName, needRender }) {
+function Header({ pageName, needRender, type }) {
   const history = useHistory();
   const [activateSearch, setActivateSearch] = useState(false);
 
@@ -36,11 +37,7 @@ function Header({ pageName, needRender }) {
         onClick={ () => setActivateSearch(!activateSearch) }
       />}
       {activateSearch
-      && <input
-        data-testid="search-input"
-        type="text"
-        placeholder="Buscar"
-      />}
+      && <SearchBar type={ type } />}
 
     </header>
   );
