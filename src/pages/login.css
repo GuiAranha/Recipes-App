@@ -63,10 +63,10 @@ body {
   justify-content: center;
   margin-top: 50px;
   transition: all 150ms ease-in-out;
+  width: 100px;
 
   /* -webkit-transition: all 150ms ease-in-out; */
   
-  width: 100px;
 }
 
 .login-submit-btn:hover {
