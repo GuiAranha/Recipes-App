@@ -1,11 +1,11 @@
 * {
   box-sizing: border-box;
   margin: 0;
-  padding: 0;  
+  padding: 0;
 }
 
 body {
-  background-image: url(../images/backgroud.png);
+  background-image: url('../images/backgroud.png');
   background-repeat: no-repeat;
   color: white;
 }
@@ -20,7 +20,7 @@ body {
 
 .container-filho {
   align-items: center;
-  background-image: url(../images/./fundoP.jpg);
+  background-image: url('../images/./fundoP.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 15px;
@@ -52,23 +52,23 @@ body {
 }
 
 .login-submit-btn {
+  -webkit-transition: all 150ms ease-in-out;
   align-items: center;
   background-color: #ffe8dc;
   border: solid 1px #ffe8dc;
   border-radius: 10px;
-  box-shadow: 0 0 40px 40px #ffb997 inset, 0 0 0 0 #ffb997;
+  box-shadow: 0 0 40px 40px #ffb997 inset , 0 0 0 0 #ffb997;
   color: black;
   display: flex;
   height: 40px;
   justify-content: center;
   margin-top: 50px;
   transition: all 150ms ease-in-out;
-  -webkit-transition: all 150ms ease-in-out;
   width: 100px;
 }
 
 .login-submit-btn:hover {
-  box-shadow: 0 0 10px 0 #ffb997 inset, 0 0 10px 4px #ffb997;
+  box-shadow: 0 0 10px 0 #ffb997 inset , 0 0 10px 4px #ffb997;
 }
 
 .login-submit-btn:disabled {
@@ -86,7 +86,7 @@ body {
 }
 
 .scan .fingerprint {
-  background: url(../images/fingerPrint_01.png);
+  background: url('../images/fingerPrint_01.png');
   background-size: 50px;
   height: 60px;
   margin-top: 70px;
@@ -94,9 +94,9 @@ body {
   width: 50px;
 }
 
-.scan .fingerprint::before {
+.scan .fingerprint:before {
   animation: animate 4s ease-in-out infinite;
-  background: url(../images/fingerPrint_02.png);
+  background: url('../images/fingerPrint_02.png');
   background-size: 50px;
   color: #ffb997;
   content: '';
@@ -117,7 +117,7 @@ body {
   }
 }
 
-.scan .fingerprint::after {
+.scan .fingerprint:after {
   animation: animate_line 4s ease-in-out infinite;
   background: #ffb997;
   border-radius: 8px;
@@ -151,9 +151,11 @@ body {
 }
 
 @keyframes animate_text {
+
   0%, 100% {
     opacity: 0;
   }
+  
   50% {
     opacity: 1;
   }
