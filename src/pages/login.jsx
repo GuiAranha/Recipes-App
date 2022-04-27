@@ -1,5 +1,6 @@
 import { useHistory } from 'react-router';
 import React, { useState } from 'react';
+import './login.css';
 
 export default function Login() {
   const history = useHistory();
@@ -24,36 +25,41 @@ export default function Login() {
   }
 
   return (
-    <>
-      <label htmlFor="email-input">
-        <input
-          data-testid="email-input"
-          value={ email }
-          type="email"
-          id="email-input"
-          placeholder="Insira seu email"
-          onChange={ ({ target }) => setEmail(target.value) }
-        />
-      </label>
-      <label htmlFor="password-input">
-        <input
-          data-testid="password-input"
-          value={ password }
-          type="password"
-          id="password-input"
-          placeholder="Insira sua senha"
-          onChange={ ({ target }) => setPassword(target.value) }
-        />
-      </label>
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ validate() }
-        onClick={ onClickLogin }
-      >
-        Login
+    <div className="container">
+      <div className="container-filho">
+        <label htmlFor="email-input">
+          <input
+            className="email-input"
+            data-testid="email-input"
+            value={ email }
+            type="email"
+            id="email-input"
+            placeholder="Insira seu email"
+            onChange={ ({ target }) => setEmail(target.value) }
+          />
+        </label>
+        <label htmlFor="password-input">
+          <input
+            className="password-input"
+            data-testid="password-input"
+            value={ password }
+            type="password"
+            id="password-input"
+            placeholder="Insira sua senha"
+            onChange={ ({ target }) => setPassword(target.value) }
+          />
+        </label>
+        <button
+          className="login-submit-btn"
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ validate() }
+          onClick={ onClickLogin }
+        >
+          Login
 
-      </button>
-    </>
+        </button>
+      </div>
+    </div>
   );
 }
