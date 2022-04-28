@@ -5,12 +5,18 @@ import MyContext from './MyContext';
 function Provider({ children }) {
   const [food, setFood] = useState([]);
   const [drink, setDrink] = useState([]);
+  const [filteredFood, setFilteredFood] = useState(false);
+  const [filteredDrink, setFilteredDrink] = useState(false);
 
   const value = {
     food,
     setFood,
     drink,
     setDrink,
+    filteredFood,
+    setFilteredFood,
+    filteredDrink,
+    setFilteredDrink,
   };
 
   return (

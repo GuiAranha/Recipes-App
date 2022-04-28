@@ -5,7 +5,8 @@ import MyContext from '../context/MyContext';
 import { fetchFoodApi, fetchDrinkApi } from '../services/fetchApi';
 
 function SearchBar({ type }) {
-  const { drink, setDrink, food, setFood } = useContext(MyContext);
+  const { drink, setDrink, food,
+    setFood, setFilteredFood, setFilteredDrink } = useContext(MyContext);
   const history = useHistory();
   const [searchRadio, setSearchRadio] = useState('');
   const [searchValue, setSearchValue] = useState('');
@@ -21,13 +22,21 @@ function SearchBar({ type }) {
         history.push(`/drinks/${idDrink}`);
       }
     }
+    function renderFilteredFood() {
+      if (food.length > 1) {
+        setFilteredFood(true);
+      }
+      if (drink.length > 1) {
+        setFilteredDrink(true);
+      }
+    }
     verifyQuantity();
+    renderFilteredFood();
   }, [drink, food, history]);
 
   async function drinkApi() {
     if (searchRadio === 'ingredient') {
       const data = await fetchDrinkApi('fetchIngredient', searchValue);
-      console.log(data);
       setDrink(data.drinks);
     }
     if (searchRadio === 'radioName') {
@@ -40,21 +49,27 @@ function SearchBar({ type }) {
         global.alert('Your search must have only 1 (one) character');
       } else {
         const data = await fetchDrinkApi('fetchFirstLetter', searchValue);
-        console.log(data);
         setDrink(data.drinks);
       }
     }
   }
+
+  const showAlert = (info) => {
+    if (info.length === 0) {
+      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+  };
+
   const searchClick = async () => {
     if (type === 'food') {
       if (searchRadio === 'ingredient') {
         const data = await fetchFoodApi('fetchIngredient', searchValue);
-        console.log(data.meals);
+        showAlert(data);
         setFood(data.meals);
       }
       if (searchRadio === 'radioName') {
         const data = await fetchFoodApi('fetchName', searchValue);
-        console.log(data.meals);
+        showAlert(data);
         setFood(data.meals);
       }
       if (searchRadio === 'firstLetter') {
@@ -62,7 +77,7 @@ function SearchBar({ type }) {
           global.alert('Your search must have only 1 (one) character');
         } else {
           const data = await fetchFoodApi('fetchFirstLetter', searchValue);
-          console.log(data.meals);
+          showAlert(data);
           setFood(data.meals);
         }
       }
