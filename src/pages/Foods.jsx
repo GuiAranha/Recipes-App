@@ -4,6 +4,8 @@ import MyContext from '../context/MyContext';
 
 function Foods() {
   const { filteredFood, food } = useContext(MyContext);
+  console.log(food);
+
   const MAX_RENDER = 12;
   if (food.length > MAX_RENDER) {
     food.length = 12;

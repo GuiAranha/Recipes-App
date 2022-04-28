@@ -34,14 +34,19 @@ function SearchBar({ type }) {
     renderFilteredFood();
   }, [drink, food, history]);
 
+  const showAlert = () => global.alert(
+    'Sorry, we haven\'t found any recipes for these filters.',
+  );
+
   async function drinkApi() {
     if (searchRadio === 'ingredient') {
       const data = await fetchDrinkApi('fetchIngredient', searchValue);
+      if (data.drinks === null) { showAlert(); }
       setDrink(data.drinks);
     }
     if (searchRadio === 'radioName') {
       const data = await fetchDrinkApi('fetchName', searchValue);
-      console.log(data);
+      if (data.drinks === null) { showAlert(); }
       setDrink(data.drinks);
     }
     if (searchRadio === 'firstLetter') {
@@ -49,38 +54,37 @@ function SearchBar({ type }) {
         global.alert('Your search must have only 1 (one) character');
       } else {
         const data = await fetchDrinkApi('fetchFirstLetter', searchValue);
+        if (data.drinks === null) { showAlert(); }
         setDrink(data.drinks);
       }
     }
   }
 
-  const showAlert = (info) => {
-    if (info.length === 0) {
-      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+  async function foodApi() {
+    if (searchRadio === 'ingredient') {
+      const data = await fetchFoodApi('fetchIngredient', searchValue);
+      if (data.meals === null) { showAlert(); }
+      setFood(data.meals);
     }
-  };
+    if (searchRadio === 'radioName') {
+      const data = await fetchFoodApi('fetchName', searchValue);
+      if (data.meals === null) { showAlert(); }
+      setFood(data.meals);
+    }
+    if (searchRadio === 'firstLetter') {
+      if (searchValue.length > 1) {
+        global.alert('Your search must have only 1 (one) character');
+      } else {
+        const data = await fetchFoodApi('fetchFirstLetter', searchValue);
+        if (data.meals === null) { showAlert(); }
+        setFood(data.meals);
+      }
+    }
+  }
 
   const searchClick = async () => {
     if (type === 'food') {
-      if (searchRadio === 'ingredient') {
-        const data = await fetchFoodApi('fetchIngredient', searchValue);
-        showAlert(data);
-        setFood(data.meals);
-      }
-      if (searchRadio === 'radioName') {
-        const data = await fetchFoodApi('fetchName', searchValue);
-        showAlert(data);
-        setFood(data.meals);
-      }
-      if (searchRadio === 'firstLetter') {
-        if (searchValue.length > 1) {
-          global.alert('Your search must have only 1 (one) character');
-        } else {
-          const data = await fetchFoodApi('fetchFirstLetter', searchValue);
-          showAlert(data);
-          setFood(data.meals);
-        }
-      }
+      foodApi();
     } else {
       drinkApi();
     }
