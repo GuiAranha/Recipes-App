@@ -4,7 +4,14 @@ import MyContext from '../context/MyContext';
 
 function Foods() {
   const { filteredFood, food } = useContext(MyContext);
-  console.log(food);
+  if (food === null) {
+    return (
+      <div>
+        <Header pageName="Foods" needRender type="food" />
+        <div>Receita não encontrada</div>
+      </div>
+    );
+  }
 
   const MAX_RENDER = 12;
   if (food.length > MAX_RENDER) {
