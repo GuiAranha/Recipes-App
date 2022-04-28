@@ -3,7 +3,10 @@ import Header from '../components/Header';
 
 function FavoriteRecipes() {
   return (
-    <Header pageName="Favorite Recipes" needRender={ false } />
+    <>
+      <Header pageName="Favorite Recipes" needRender={ false } />
+      <span>Estou em Receitas Favoritas</span>
+    </>
   );
 }
 
