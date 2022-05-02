@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import MyContext from '../context/MyContext';
 import Footer from '../components/Footer';
 import FoodCards from '../cards/FoodCards';
+import FoodCategories from '../components/FoodCategories';
 
 function Foods() {
   const { filteredFood, food, globalRender } = useContext(MyContext);
@@ -22,6 +23,7 @@ function Foods() {
   return (
     <>
       <Header pageName="Foods" needRender type="food" />
+      <FoodCategories />
       {filteredFood
       && food.map((element, index) => (
         <div key={ index } data-testid={ `${index}-recipe-card` }>

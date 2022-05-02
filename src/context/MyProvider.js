@@ -11,6 +11,8 @@ function Provider({ children }) {
   const [allFood, setAllFood] = useState([]);
   const [allDrink, setAllDrink] = useState([]);
   const [globalRender, setGlobalRender] = useState(true);
+  const [drinkCategories, setDrinkCategories] = useState([]);
+  const [foodCategories, setFoodCategories] = useState([]);
 
   const value = {
     food,
@@ -27,6 +29,10 @@ function Provider({ children }) {
     setAllDrink,
     globalRender,
     setGlobalRender,
+    drinkCategories,
+    setDrinkCategories,
+    foodCategories,
+    setFoodCategories,
   };
 
   useEffect(() => {
@@ -43,6 +49,26 @@ function Provider({ children }) {
       setAllDrink(data.drinks);
     };
     fetchAllDrink();
+  }, []);
+
+  useEffect(() => {
+    const fetchDrinkCategories = async () => {
+      const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+      const data = await fetch(url);
+      const response = await data.json();
+      setDrinkCategories(response.drinks);
+    };
+    fetchDrinkCategories();
+  }, []);
+
+  useEffect(() => {
+    const fetchFoodCategories = async () => {
+      const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+      const data = await fetch(url);
+      const response = await data.json();
+      setFoodCategories(response.meals);
+    };
+    fetchFoodCategories();
   }, []);
 
   return (

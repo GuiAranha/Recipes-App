@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import DrinkCards from '../cards/DrinkCard';
+import DrinkCategories from '../components/DrinkCategories';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MyContext from '../context/MyContext';
@@ -35,6 +36,7 @@ function Drinks() {
           </p>
         </div>
       ))}
+      <DrinkCategories />
       {globalRender
       && <DrinkCards />}
       <Footer />
