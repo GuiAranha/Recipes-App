@@ -32,7 +32,7 @@ function SearchBar({ type }) {
     }
     verifyQuantity();
     renderFilteredFood();
-  }, [drink, food, history]);
+  }, [drink, food, history, setFilteredDrink, setFilteredFood]);
 
   const showAlert = () => global.alert(
     'Sorry, we haven\'t found any recipes for these filters.',
