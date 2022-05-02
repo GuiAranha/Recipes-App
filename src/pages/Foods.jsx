@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import Header from '../components/Header';
 import MyContext from '../context/MyContext';
+import Footer from '../components/Footer';
 
 function Foods() {
   const { filteredFood, food } = useContext(MyContext);
@@ -20,6 +21,7 @@ function Foods() {
   return (
     <>
       <Header pageName="Foods" needRender type="food" />
+
       <div> Foods </div>
       {filteredFood
       && food.map((element, index) => (
@@ -34,6 +36,10 @@ function Foods() {
           </p>
         </div>
       ))}
+
+      <div>Estou no foods</div>
+      
+      <Footer />
     </>
   );
 }
