@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
+import DrinkCards from '../cards/DrinkCard';
+import DrinkCategories from '../components/DrinkCategories';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MyContext from '../context/MyContext';
 
 function Drinks() {
-  const { filteredDrink, drink } = useContext(MyContext);
+  const { filteredDrink, drink, globalRender } = useContext(MyContext);
   if (drink === null) {
     return (
       <div>
@@ -21,8 +23,6 @@ function Drinks() {
   return (
     <>
       <Header pageName="Drinks" needRender type="drink" />
-
-      <div>Drinks</div>
       {filteredDrink
       && drink.map((element, index) => (
         <div key={ index } data-testid={ `${index}-recipe-card` }>
@@ -36,8 +36,9 @@ function Drinks() {
           </p>
         </div>
       ))}
-
-      <span>Estou em bebidas</span>
+      <DrinkCategories />
+      {globalRender
+      && <DrinkCards />}
       <Footer />
     </>
   );
