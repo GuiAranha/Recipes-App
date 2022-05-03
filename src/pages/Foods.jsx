@@ -2,9 +2,11 @@ import React, { useContext } from 'react';
 import Header from '../components/Header';
 import MyContext from '../context/MyContext';
 import Footer from '../components/Footer';
+import FoodCards from '../cards/FoodCards';
+import FoodCategories from '../components/FoodCategories';
 
 function Foods() {
-  const { filteredFood, food } = useContext(MyContext);
+  const { filteredFood, food, globalRender } = useContext(MyContext);
   if (food === null) {
     return (
       <div>
@@ -21,8 +23,7 @@ function Foods() {
   return (
     <>
       <Header pageName="Foods" needRender type="food" />
-
-      <div> Foods </div>
+      <FoodCategories />
       {filteredFood
       && food.map((element, index) => (
         <div key={ index } data-testid={ `${index}-recipe-card` }>
@@ -36,9 +37,8 @@ function Foods() {
           </p>
         </div>
       ))}
-
-      <div>Estou no foods</div>
-      
+      {globalRender
+      && <FoodCards /> }
       <Footer />
     </>
   );

@@ -6,7 +6,8 @@ import { fetchFoodApi, fetchDrinkApi } from '../services/fetchApi';
 
 function SearchBar({ type }) {
   const { drink, setDrink, food,
-    setFood, setFilteredFood, setFilteredDrink } = useContext(MyContext);
+    setFood, setFilteredFood, setFilteredDrink,
+    globalRender, setGlobalRender } = useContext(MyContext);
   const history = useHistory();
   const [searchRadio, setSearchRadio] = useState('');
   const [searchValue, setSearchValue] = useState('');
@@ -88,6 +89,7 @@ function SearchBar({ type }) {
     } else {
       drinkApi();
     }
+    setGlobalRender(!globalRender);
   };
 
   return (
