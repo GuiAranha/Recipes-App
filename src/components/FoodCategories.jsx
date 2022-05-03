@@ -11,6 +11,11 @@ function FoodCategories() {
     foodCategories.length = 5;
   }
 
+  const selectAllFood = async () => {
+    const data = await fetchFoodApi('fetchName', '');
+    setAllFood(data.meals);
+  };
+
   const applyCategoryFilter = async (category) => {
     if (toggle) {
       const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
@@ -18,15 +23,21 @@ function FoodCategories() {
       const { meals } = await data.json();
       setAllFood(meals);
     } else {
-      const data = await fetchFoodApi('fetchName', '');
-      setAllFood(data.meals);
+      selectAllFood();
     }
     setToggle(!toggle);
   };
 
   return (
     <div>
+      <Button
+        data-testid="All-category-filter"
+        type="button"
+        onClick={ selectAllFood }
+      >
+        All
 
+      </Button>
       {foodCategories.map(({ strCategory }, index) => (
         <div key={ index }>
           <Button

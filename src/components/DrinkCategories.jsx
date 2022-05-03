@@ -11,6 +11,11 @@ function DrinkCategories() {
     drinkCategories.length = 5;
   }
 
+  const selectAllDrink = async () => {
+    const data = await fetchDrinkApi('fetchName', '');
+    setAllDrink(data.drinks);
+  };
+
   const applyCategoryFilter = async (category) => {
     if (toggle) {
       const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
@@ -18,14 +23,20 @@ function DrinkCategories() {
       const { drinks } = await data.json();
       setAllDrink(drinks);
     } else {
-      const data = await fetchDrinkApi('fetchName', '');
-      setAllDrink(data.drinks);
+      selectAllDrink();
     }
     setToggle(!toggle);
   };
 
   return (
     <div>
+      <Button
+        data-testid="All-category-filter"
+        type="button"
+        onClick={ selectAllDrink }
+      >
+        All
+      </Button>
 
       {drinkCategories.map(({ strCategory }, index) => (
         <div key={ index }>
