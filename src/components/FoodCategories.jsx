@@ -5,7 +5,7 @@ import { fetchFoodApi } from '../services/fetchApi';
 
 function FoodCategories() {
   const { foodCategories, setAllFood } = useContext(MyContext);
-  const [toggle, setToggle] = useState(true);
+  const [toggle, setToggle] = useState('');
   const MAX_RENDER = 5;
   if (foodCategories.length > MAX_RENDER) {
     foodCategories.length = 5;
@@ -16,16 +16,17 @@ function FoodCategories() {
     setAllFood(data.meals);
   };
 
-  const applyCategoryFilter = async (category) => {
-    if (toggle) {
+  const applyCategoryFilter = async ({ target }, category) => {
+    console.log(target.name);
+    if (toggle !== target.name) {
       const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
       const data = await fetch(url);
       const { meals } = await data.json();
       setAllFood(meals);
+      setToggle(target.name);
     } else {
       selectAllFood();
     }
-    setToggle(!toggle);
   };
 
   return (
@@ -41,9 +42,10 @@ function FoodCategories() {
       {foodCategories.map(({ strCategory }, index) => (
         <div key={ index }>
           <Button
+            name={ strCategory }
             data-testid={ `${strCategory}-category-filter` }
             type="button"
-            onClick={ () => applyCategoryFilter(strCategory) }
+            onClick={ (event) => applyCategoryFilter(event, strCategory) }
           >
             {strCategory}
 
