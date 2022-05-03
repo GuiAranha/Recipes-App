@@ -1,19 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import MyContext from '../context/MyContext';
+import { fetchFoodApi } from '../services/fetchApi';
 
 function FoodCategories() {
   const { foodCategories, setAllFood } = useContext(MyContext);
+  const [toggle, setToggle] = useState(true);
   const MAX_RENDER = 5;
   if (foodCategories.length > MAX_RENDER) {
     foodCategories.length = 5;
   }
 
   const applyCategoryFilter = async (category) => {
-    const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
-    const data = await fetch(url);
-    const { meals } = await data.json();
-    setAllFood(meals);
+    if (toggle) {
+      const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+      const data = await fetch(url);
+      const { meals } = await data.json();
+      setAllFood(meals);
+    } else {
+      const data = await fetchFoodApi('fetchName', '');
+      setAllFood(data.meals);
+    }
+    setToggle(!toggle);
   };
 
   return (
