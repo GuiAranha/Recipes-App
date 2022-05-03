@@ -6,6 +6,7 @@ function FoodIngredients() {
   return (
     <>
       <Header pageName="Explore Ingredients" needRender={ false } />
+      <div> Estou na Explore Foods Ingredients</div>
       <Footer />
     </>
   );
