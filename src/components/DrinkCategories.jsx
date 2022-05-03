@@ -5,7 +5,7 @@ import { fetchDrinkApi } from '../services/fetchApi';
 
 function DrinkCategories() {
   const { drinkCategories, setAllDrink } = useContext(MyContext);
-  const [toggle, setToggle] = useState(true);
+  const [toggle, setToggle] = useState('');
   const MAX_RENDER = 5;
   if (drinkCategories.length > MAX_RENDER) {
     drinkCategories.length = 5;
@@ -16,16 +16,16 @@ function DrinkCategories() {
     setAllDrink(data.drinks);
   };
 
-  const applyCategoryFilter = async (category) => {
-    if (toggle) {
+  const applyCategoryFilter = async ({ target }, category) => {
+    if (toggle !== target.name) {
       const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
       const data = await fetch(url);
       const { drinks } = await data.json();
       setAllDrink(drinks);
+      setToggle(target.name);
     } else {
       selectAllDrink();
     }
-    setToggle(!toggle);
   };
 
   return (
@@ -41,9 +41,10 @@ function DrinkCategories() {
       {drinkCategories.map(({ strCategory }, index) => (
         <div key={ index }>
           <Button
+            name={ strCategory }
             data-testid={ `${strCategory}-category-filter` }
             type="button"
-            onClick={ () => applyCategoryFilter(strCategory) }
+            onClick={ (event) => applyCategoryFilter(event, strCategory) }
           >
             {strCategory}
 
