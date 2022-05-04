@@ -8,7 +8,7 @@ import ExploreFoods from '../pages/ExploreFoods';
 import ExploreDrinks from '../pages/ExploreDrinks';
 import FoodIngredients from '../pages/FoodIngredients';
 import DrinkIngredients from '../pages/DrinkIngredients';
-import FoodNationalities from '../pages/FoodNatiolaties';
+import FoodNationalities from '../pages/FoodNationalities';
 import Profile from '../pages/Profile';
 import DoneRecipes from '../pages/DoneRecipes';
 import FavoriteRecipes from '../pages/FavoriteRecipes';

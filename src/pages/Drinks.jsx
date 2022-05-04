@@ -23,6 +23,7 @@ function Drinks() {
   return (
     <>
       <Header pageName="Drinks" needRender type="drink" />
+      <DrinkCategories />
       {filteredDrink
       && drink.map((element, index) => (
         <div key={ index } data-testid={ `${index}-recipe-card` }>
@@ -36,7 +37,6 @@ function Drinks() {
           </p>
         </div>
       ))}
-      <DrinkCategories />
       {globalRender
       && <DrinkCards />}
       <Footer />

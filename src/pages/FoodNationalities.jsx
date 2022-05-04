@@ -6,6 +6,7 @@ function FoodNationalities() {
   return (
     <>
       <Header pageName="Explore Nationalities" needRender />
+      <div> Estou na Explore Foods Nationalities</div>
       <Footer />
     </>
   );
