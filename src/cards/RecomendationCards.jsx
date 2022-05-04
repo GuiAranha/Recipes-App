@@ -30,6 +30,7 @@ function RecomendationCards({ type }) {
         </div>
 
       ))}
+
     </>
   );
 }

@@ -24,6 +24,21 @@ function DrinkDetails() {
   if (drink.length === 0) {
     return (<div>Não existe detalhe</div>);
   }
+  // filtro para selecionar somente as keys com valor igual a Ingredient
+  // https://masteringjs.io/tutorials/fundamentals/filter-key#:~:text=JavaScript%20objects%20don't%20have,()%20function%20as%20shown%20below.
+  const ingredients = Object.values(Object.fromEntries(Object.entries(drink[0])
+    .filter(([key]) => key.includes('Ingredient')))).filter((e) => e !== null);
+
+  const measures = Object.values(Object.fromEntries(Object.entries(drink[0])
+    .filter(([key]) => key.includes('Measure')))).filter((e) => e !== null);
+
+  const totalIngredients = ingredients
+    .map((element, index) => (
+      measures[index]
+        ? element.concat(` - ${measures[index]}`)
+        : element
+    ));
+
   return (
     <div>
       <img
@@ -47,6 +62,12 @@ function DrinkDetails() {
         src={ WhiteHeartIcon }
         alt="ícone de coração para favoritar"
       />
+      <h3>Ingredients</h3>
+      {totalIngredients.map((element, index) => (
+        <div key={ index }>
+          <p data-testid={ `${index}-ingredient-name-and-measure` }>{element}</p>
+        </div>
+      ))}
       <h3>Instructions</h3>
       <p data-testid="instructions">{drink[0].strInstructions}</p>
       <RecomendationCards type="drink" />
