@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 
 function FoodCards() {
@@ -11,22 +12,24 @@ function FoodCards() {
 
   return (
     <div>
-      {allFood.map(({ strMealThumb, strMeal }, index) => (
-        <div
-          key={ index }
-          data-testid={ `${index}-recipe-card` }
-        >
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ strMealThumb }
-            alt={ `Imagem da receita ${strMeal}` }
-          />
-          <p
-            data-testid={ `${index}-card-name` }
+      {allFood.map(({ strMealThumb, strMeal, idMeal }, index) => (
+        <Link key={ index } to={ `/foods/${idMeal}` }>
+          <div
+            key={ index }
+            data-testid={ `${index}-recipe-card` }
           >
-            {strMeal}
-          </p>
-        </div>
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ strMealThumb }
+              alt={ `Imagem da receita ${strMeal}` }
+            />
+            <p
+              data-testid={ `${index}-card-name` }
+            >
+              {strMeal}
+            </p>
+          </div>
+        </Link>
 
       ))}
     </div>
