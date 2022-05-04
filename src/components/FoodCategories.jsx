@@ -17,7 +17,6 @@ function FoodCategories() {
   };
 
   const applyCategoryFilter = async ({ target }, category) => {
-    console.log(target.name);
     if (toggle !== target.name) {
       const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
       const data = await fetch(url);
