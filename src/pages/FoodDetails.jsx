@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import RecomendationCards from '../cards/RecomendationCards';
 import ShareIcon from '../images/shareIcon.svg';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
+import './FixedButton.css';
 
 function FoodDetails() {
   const [food, setFood] = useState('');
@@ -78,7 +79,13 @@ function FoodDetails() {
         title="video"
       />
       <RecomendationCards type="food" />
-      <Button data-testid="start-recipe-btn">Start Recipe</Button>
+      <Button
+        data-testid="start-recipe-btn"
+        className="start-recipe-button"
+      >
+        Start Recipe
+
+      </Button>
     </div>
 
   );

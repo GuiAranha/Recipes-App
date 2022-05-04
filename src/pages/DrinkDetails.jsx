@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import RecomendationCards from '../cards/RecomendationCards';
 import ShareIcon from '../images/shareIcon.svg';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
+import './FixedButton.css';
 
 function DrinkDetails() {
   const [drink, setDrink] = useState('');
@@ -71,7 +72,13 @@ function DrinkDetails() {
       <h3>Instructions</h3>
       <p data-testid="instructions">{drink[0].strInstructions}</p>
       <RecomendationCards type="drink" />
-      <Button data-testid="start-recipe-btn">Start Recipe</Button>
+      <Button
+        data-testid="start-recipe-btn"
+        className="start-recipe-button"
+      >
+        Start Recipe
+
+      </Button>
     </div>
 
   );
