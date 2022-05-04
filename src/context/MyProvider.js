@@ -13,6 +13,7 @@ function Provider({ children }) {
   const [globalRender, setGlobalRender] = useState(true);
   const [drinkCategories, setDrinkCategories] = useState([]);
   const [foodCategories, setFoodCategories] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
 
   const value = {
     food,
@@ -33,6 +34,8 @@ function Provider({ children }) {
     setDrinkCategories,
     foodCategories,
     setFoodCategories,
+    ingredients,
+    setIngredients,
   };
 
   useEffect(() => {
