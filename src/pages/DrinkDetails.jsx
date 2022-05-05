@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import RecomendationCards from '../cards/RecomendationCards';
 import ShareIcon from '../images/shareIcon.svg';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
+import BlackHeartIcon from '../images/blackHeartIcon.svg';
 import './FixedButton.css';
 
 function DrinkDetails() {
   const [drink, setDrink] = useState('');
   const location = useLocation();
+  const history = useHistory();
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
   const { pathname: id } = location;
   const idNumber = id.split('drinks/')[1];
 
@@ -40,9 +44,23 @@ function DrinkDetails() {
         : element
     ));
 
+  const redirectInProgress = () => {
+    history.push(`${id}/in-progress`);
+  };
+
+  const copyToClipboard = async () => {
+    await navigator.clipboard.writeText(`${window.location}`);
+    setLinkCopied(true);
+  };
+
+  const favoriteRecipe = () => {
+    setIsFavorite(!isFavorite);
+  };
+
   return (
     <div>
       <img
+        width={ 360 }
         data-testid="recipe-photo"
         src={ drink[0].strDrinkThumb }
         alt="Ilustração receita bebida"
@@ -51,16 +69,21 @@ function DrinkDetails() {
         {drink[0].strDrink}
       </h1>
       <p data-testid="recipe-category">{drink[0].strAlcoholic}</p>
+      { linkCopied ? 'Link copied!'
+        : (
+          <input
+            onClick={ copyToClipboard }
+            data-testid="share-btn"
+            type="image"
+            src={ ShareIcon }
+            alt="ícone de compartilhamento"
+          />
+        )}
       <input
-        data-testid="share-btn"
-        type="image"
-        src={ ShareIcon }
-        alt="ícone de compartilhamento"
-      />
-      <input
+        onClick={ favoriteRecipe }
         data-testid="favorite-btn"
         type="image"
-        src={ WhiteHeartIcon }
+        src={ isFavorite ? BlackHeartIcon : WhiteHeartIcon }
         alt="ícone de coração para favoritar"
       />
       <h3>Ingredients</h3>
@@ -73,6 +96,7 @@ function DrinkDetails() {
       <p data-testid="instructions">{drink[0].strInstructions}</p>
       <RecomendationCards type="drink" />
       <Button
+        onClick={ redirectInProgress }
         data-testid="start-recipe-btn"
         className="start-recipe-button"
       >
