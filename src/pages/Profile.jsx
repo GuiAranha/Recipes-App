@@ -13,7 +13,7 @@ export default function Profile() {
     <>
       <Header pageName="Profile" needRender={ false } />
       <p data-testid="profile-email">
-        {emailProfile.email}
+        {emailProfile && emailProfile.email}
       </p>
       <Button
         data-testid="profile-done-btn"
