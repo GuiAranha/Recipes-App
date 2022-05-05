@@ -18,6 +18,7 @@ function DrinkCards() {
             data-testid={ `${index}-recipe-card` }
           >
             <img
+              width={ 300 }
               data-testid={ `${index}-card-img` }
               src={ strDrinkThumb }
               alt={ `Imagem da receita ${strDrink}` }
