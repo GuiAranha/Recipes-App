@@ -19,7 +19,7 @@ function FoodNationalities() {
   }, []);
 
   useEffect(() => {
-    setbeforeFilterArea(allFood);
+    setbeforeFilterArea(allFood); // precisa armazenar o allFood do inicio
     console.log(allFood);
     console.log(beforeFilterArea);
   }, []);
@@ -34,7 +34,7 @@ function FoodNationalities() {
     if (e.target !== 'all') {
       fetchFilterByNationalities(e.target.value);
     } else {
-      setAllFood(beforeFilterArea);
+      setAllFood(beforeFilterArea);// precisa ser o mesmo array do inicio.
     }
   }
 
