@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from '../context/MyContext';
+import './RecomendationCards.css';
 
 function RecomendationCards({ type }) {
   let recomendation = [];
@@ -13,25 +14,45 @@ function RecomendationCards({ type }) {
   }
 
   if (type === 'drink') {
-    recomendation = allDrink;
-  } else {
     recomendation = allFood;
-  }
+    return (
+      <div className="recomendation-card">
+        {recomendation.map(({ strCategory, strMealThumb, strMeal }, index) => (
+          <div
+            data-testid={ `${index}-recomendation-card` }
+            key={ index }
+          >
+            <img width={ 330 } src={ strMealThumb } alt={ strMeal } />
+            <p>
+              {strCategory}
+            </p>
+            <h2 data-testid={ `${index}-recomendation-title` }>{strMeal}</h2>
 
+          </div>
+
+        ))}
+      </div>
+
+    );
+  }
+  recomendation = allDrink;
   return (
-    <>
-      {recomendation.map(({ strCategory }, index) => (
+    <div className="recomendation-card">
+      {recomendation.map(({ strAlcoholic, strDrinkThumb, strDrink }, index) => (
         <div
           data-testid={ `${index}-recomendation-card` }
           key={ index }
         >
-          {strCategory}
-
+          <img width={ 330 } src={ strDrinkThumb } alt={ strDrink } />
+          <p>
+            {strAlcoholic}
+          </p>
+          <h2 data-testid={ `${index}-recomendation-title` }>{strDrink}</h2>
         </div>
 
       ))}
 
-    </>
+    </div>
   );
 }
 
