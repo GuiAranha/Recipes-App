@@ -3,11 +3,11 @@ import FoodCards from '../cards/FoodCards';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MyContext from '../context/MyContext';
+import { fetchFoodApi } from '../services/fetchApi';
 
 function FoodNationalities() {
-  const { allFood, setAllFood } = useContext(MyContext);
+  const { setAllFood } = useContext(MyContext);
   const [nationalities, setNationalities] = useState([]);
-  const [beforeFilterArea, setbeforeFilterArea] = useState(['a', 'b']);
 
   useEffect(() => {
     async function fetchNationalities() {
@@ -18,11 +18,10 @@ function FoodNationalities() {
     fetchNationalities();
   }, []);
 
-  useEffect(() => {
-    setbeforeFilterArea(allFood); // precisa armazenar o allFood do inicio
-    console.log(allFood);
-    console.log(beforeFilterArea);
-  }, []);
+  const fetchAllFood = async () => {
+    const data = await fetchFoodApi('fetchName', '');
+    setAllFood(data.meals);
+  };
 
   async function fetchFilterByNationalities(area) {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
@@ -31,10 +30,10 @@ function FoodNationalities() {
   }
 
   function filterNationality(e) {
-    if (e.target !== 'all') {
+    if (e.target.value !== 'all') {
       fetchFilterByNationalities(e.target.value);
     } else {
-      setAllFood(beforeFilterArea);// precisa ser o mesmo array do inicio.
+      fetchAllFood();
     }
   }
 
