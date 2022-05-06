@@ -2,19 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useLocation, useHistory } from 'react-router-dom';
 import RecomendationCards from '../cards/RecomendationCards';
-import ShareIcon from '../images/shareIcon.svg';
-import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
-import BlackHeartIcon from '../images/blackHeartIcon.svg';
+import ShareAndFavFood from '../components/ShareAndFav';
 import './FixedButton.css';
 
 function FoodDetails() {
   const [food, setFood] = useState('');
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [linkCopied, setLinkCopied] = useState(false);
   const location = useLocation();
   const history = useHistory();
-  const { pathname: id } = location;
-  const idNumber = id.split('foods/')[1];
+  const { pathname } = location;
+  const idNumber = pathname.split('foods/')[1];
 
   useEffect(() => {
     const fetchById = async () => {
@@ -27,7 +23,7 @@ function FoodDetails() {
   }, [idNumber]);
 
   if (food.length === 0) {
-    return (<div>Carregando</div>);
+    return (<div>Carregando...</div>);
   }
 
   const ingredients = Object.values(Object.fromEntries(Object.entries(food[0])
@@ -44,19 +40,8 @@ function FoodDetails() {
     ));
 
   const redirectInProgress = () => {
-    history.push(`${id}/in-progress`);
+    history.push(`${pathname}/in-progress`);
   };
-
-  // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
-  const copyToClipboard = async () => {
-    await navigator.clipboard.writeText(`${window.location}`);
-    setLinkCopied(true);
-  };
-
-  const favoriteRecipe = () => {
-    setIsFavorite(!isFavorite);
-  };
-
   return (
     <div>
       <img
@@ -69,22 +54,7 @@ function FoodDetails() {
         {food[0].strMeal}
       </h1>
       <p data-testid="recipe-category">{food[0].strCategory}</p>
-      {linkCopied ? 'Link copied!'
-        : (
-          <input
-            onClick={ copyToClipboard }
-            data-testid="share-btn"
-            type="image"
-            src={ ShareIcon }
-            alt="ícone de compartilhamento"
-          />)}
-      <input
-        onClick={ favoriteRecipe }
-        data-testid="favorite-btn"
-        type="image"
-        src={ isFavorite ? BlackHeartIcon : WhiteHeartIcon }
-        alt="ícone de coração para favoritar"
-      />
+      <ShareAndFavFood recipeContent={ food } />
       <h3>Ingredients</h3>
       {totalIngredients.map((element, index) => (
         <div key={ index }>
