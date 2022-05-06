@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-function Profile() {
+export default function Profile() {
   const emailProfile = JSON.parse(localStorage.getItem('user'));
 
   const history = useHistory();
@@ -42,5 +42,3 @@ function Profile() {
     </>
   );
 }
-
-export default Profile;
