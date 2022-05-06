@@ -2,17 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useLocation, useHistory } from 'react-router-dom';
 import RecomendationCards from '../cards/RecomendationCards';
-import ShareIcon from '../images/shareIcon.svg';
-import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
-import BlackHeartIcon from '../images/blackHeartIcon.svg';
+import ShareAndFavDrink from '../components/ShareAndFavDrink';
 import './FixedButton.css';
 
 function DrinkDetails() {
   const [drink, setDrink] = useState('');
   const location = useLocation();
   const history = useHistory();
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [linkCopied, setLinkCopied] = useState(false);
   const { pathname: id } = location;
   const idNumber = id.split('drinks/')[1];
 
@@ -48,15 +44,6 @@ function DrinkDetails() {
     history.push(`${id}/in-progress`);
   };
 
-  const copyToClipboard = async () => {
-    await navigator.clipboard.writeText(`${window.location}`);
-    setLinkCopied(true);
-  };
-
-  const favoriteRecipe = () => {
-    setIsFavorite(!isFavorite);
-  };
-
   return (
     <div>
       <img
@@ -69,23 +56,7 @@ function DrinkDetails() {
         {drink[0].strDrink}
       </h1>
       <p data-testid="recipe-category">{drink[0].strAlcoholic}</p>
-      { linkCopied ? 'Link copied!'
-        : (
-          <input
-            onClick={ copyToClipboard }
-            data-testid="share-btn"
-            type="image"
-            src={ ShareIcon }
-            alt="ícone de compartilhamento"
-          />
-        )}
-      <input
-        onClick={ favoriteRecipe }
-        data-testid="favorite-btn"
-        type="image"
-        src={ isFavorite ? BlackHeartIcon : WhiteHeartIcon }
-        alt="ícone de coração para favoritar"
-      />
+      <ShareAndFavDrink actualFood={ drink } />
       <h3>Ingredients</h3>
       {totalIngredients.map((element, index) => (
         <div key={ index }>
