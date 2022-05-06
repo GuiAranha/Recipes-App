@@ -39,6 +39,20 @@ function FoodDetails() {
         : element
     ));
 
+  const verifyProgress = () => {
+    const { idMeal: id } = food[0];
+    const actualState = { id };
+    const recipeIsDone = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (recipeIsDone) {
+      if (recipeIsDone.find((elemento) => elemento
+        .id === actualState.id) !== undefined) {
+        return false;
+      }
+      return true;
+    }
+    return true;
+  };
+
   const redirectInProgress = () => {
     history.push(`${pathname}/in-progress`);
   };
@@ -72,14 +86,17 @@ function FoodDetails() {
         title="video"
       />
       <RecomendationCards type="food" />
-      <Button
-        onClick={ redirectInProgress }
-        data-testid="start-recipe-btn"
-        className="start-recipe-button"
-      >
-        Start Recipe
+      {verifyProgress()
+        ? (
+          <Button
+            onClick={ redirectInProgress }
+            data-testid="start-recipe-btn"
+            className="start-recipe-button"
+          >
+            Start Recipe
 
-      </Button>
+          </Button>)
+        : ''}
     </div>
 
   );
