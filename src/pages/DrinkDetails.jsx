@@ -9,8 +9,8 @@ function DrinkDetails() {
   const [drink, setDrink] = useState('');
   const location = useLocation();
   const history = useHistory();
-  const { pathname: id } = location;
-  const idNumber = id.split('drinks/')[1];
+  const { pathname } = location;
+  const idNumber = pathname.split('drinks/')[1];
 
   useEffect(() => {
     const fetchById = async () => {
@@ -40,8 +40,24 @@ function DrinkDetails() {
         : element
     ));
 
+  const verifyProgress = () => {
+    const { idDrink: id } = drink[0];
+    const actualState = { id };
+    console.log(actualState.id);
+    const recipeIsDone = JSON.parse(localStorage.getItem('doneRecipes'));
+    console.log(recipeIsDone);
+    if (recipeIsDone) {
+      if (recipeIsDone.find((elemento) => elemento
+        .id === actualState.id) !== undefined) {
+        return false;
+      }
+      return true;
+    }
+    return true;
+  };
+
   const redirectInProgress = () => {
-    history.push(`${id}/in-progress`);
+    history.push(`${pathname}/in-progress`);
   };
 
   return (
@@ -66,14 +82,17 @@ function DrinkDetails() {
       <h3>Instructions</h3>
       <p data-testid="instructions">{drink[0].strInstructions}</p>
       <RecomendationCards type="drink" />
-      <Button
-        onClick={ redirectInProgress }
-        data-testid="start-recipe-btn"
-        className="start-recipe-button"
-      >
-        Start Recipe
+      {verifyProgress()
+        ? (
+          <Button
+            onClick={ redirectInProgress }
+            data-testid="start-recipe-btn"
+            className="start-recipe-button"
+          >
+            Start Recipe
 
-      </Button>
+          </Button>)
+        : ''}
     </div>
 
   );
