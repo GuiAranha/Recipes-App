@@ -59,6 +59,10 @@ export default function Login() {
           Login
 
         </button>
+        <div className="scan">
+          <div className="fingerprint" />
+          <h3>Scanning...</h3>
+        </div>
       </div>
     </div>
   );
