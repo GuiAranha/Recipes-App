@@ -9,19 +9,19 @@ function FoodNationalities() {
   const { setAllFood } = useContext(MyContext);
   const [nationalities, setNationalities] = useState([]);
 
+  const fetchAllFood = async () => {
+    const data = await fetchFoodApi('fetchName', '');
+    setAllFood(data.meals);
+  };
+
   useEffect(() => {
     async function fetchNationalities() {
-      const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list%27');
+      const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
       const { meals } = await response.json();
       setNationalities(meals);
     }
     fetchNationalities();
   }, []);
-
-  const fetchAllFood = async () => {
-    const data = await fetchFoodApi('fetchName', '');
-    setAllFood(data.meals);
-  };
 
   async function fetchFilterByNationalities(area) {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
@@ -30,7 +30,7 @@ function FoodNationalities() {
   }
 
   function filterNationality(e) {
-    if (e.target.value !== 'all') {
+    if (e.target.value !== 'All') {
       fetchFilterByNationalities(e.target.value);
     } else {
       fetchAllFood();
@@ -40,30 +40,32 @@ function FoodNationalities() {
   return (
     <>
       <Header pageName="Explore Nationalities" needRender />
-      <select
-        data-testid="explore-by-nationality-dropdown"
-        name="nationalities"
-        id="nationalities"
-        onChange={ filterNationality }
-      >
-        <option
-          key="all"
-          data-testid={ `${'all'}-option` }
-          value="all"
+      <main>
+        <select
+          data-testid="explore-by-nationality-dropdown"
+          name="nationalities"
+          id="nationalities"
+          onChange={ filterNationality }
         >
-          All
-        </option>
-        {nationalities.map((nationality, i) => (
           <option
-            key={ i }
-            data-testid={ `${nationality.strArea}-option` }
-            value={ nationality.strArea }
+            key="All"
+            data-testid={ `${'All'}-option` }
+            value="All"
           >
-            {nationality.strArea}
+            All
           </option>
-        ))}
-      </select>
-      <FoodCards />
+          {nationalities.map((nationality, i) => (
+            <option
+              key={ i }
+              data-testid={ `${nationality.strArea}-option` }
+              value={ nationality.strArea }
+            >
+              {nationality.strArea}
+            </option>
+          ))}
+        </select>
+        <FoodCards />
+      </main>
       <Footer />
     </>
   );
