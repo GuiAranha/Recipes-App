@@ -23,7 +23,7 @@ function DrinkDetails() {
   }, [idNumber]);
 
   if (drink.length === 0) {
-    return (<div>Não existe detalhe</div>);
+    return (<div>Carregando</div>);
   }
   // filtro para selecionar somente as keys com valor igual a Ingredient
   // https://masteringjs.io/tutorials/fundamentals/filter-key#:~:text=JavaScript%20objects%20don't%20have,()%20function%20as%20shown%20below.
@@ -43,9 +43,7 @@ function DrinkDetails() {
   const verifyProgress = () => {
     const { idDrink: id } = drink[0];
     const actualState = { id };
-    console.log(actualState.id);
     const recipeIsDone = JSON.parse(localStorage.getItem('doneRecipes'));
-    console.log(recipeIsDone);
     if (recipeIsDone) {
       if (recipeIsDone.find((elemento) => elemento
         .id === actualState.id) !== undefined) {
