@@ -7,6 +7,7 @@ import './FixedButton.css';
 
 function FoodDetails() {
   const [food, setFood] = useState('');
+  const [inProgress, setInProgress] = useState(false);
   const location = useLocation();
   const history = useHistory();
   const { pathname } = location;
@@ -21,6 +22,14 @@ function FoodDetails() {
     };
     fetchById();
   }, [idNumber]);
+
+  useEffect(() => {
+    const verifyRecipeInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (verifyRecipeInProgress !== null && verifyRecipeInProgress.meals[idNumber]) {
+      // console.log(verifyRecipeInProgress.meals);
+      setInProgress(true);
+    }
+  });
 
   if (food.length === 0) {
     return (<div>Carregando...</div>);
@@ -93,7 +102,7 @@ function FoodDetails() {
             data-testid="start-recipe-btn"
             className="start-recipe-button"
           >
-            Start Recipe
+            { inProgress ? 'Continue Recipe' : 'Start Recipe'}
 
           </Button>)
         : ''}

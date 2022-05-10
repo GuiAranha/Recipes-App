@@ -7,6 +7,7 @@ import './FixedButton.css';
 
 function DrinkDetails() {
   const [drink, setDrink] = useState('');
+  const [inProgress, setInProgress] = useState(false);
   const location = useLocation();
   const history = useHistory();
   const { pathname } = location;
@@ -21,6 +22,14 @@ function DrinkDetails() {
     };
     fetchById();
   }, [idNumber]);
+
+  useEffect(() => {
+    const verifyRecipeInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (verifyRecipeInProgress !== null && verifyRecipeInProgress.cocktails[idNumber]) {
+      // console.log(verifyRecipeInProgress.meals);
+      setInProgress(true);
+    }
+  });
 
   if (drink.length === 0) {
     return (<div>Carregando</div>);
@@ -87,7 +96,7 @@ function DrinkDetails() {
             data-testid="start-recipe-btn"
             className="start-recipe-button"
           >
-            Start Recipe
+            { inProgress ? 'Continue Recipe' : 'Start Recipe'}
 
           </Button>)
         : ''}
