@@ -49,7 +49,7 @@ function FavoriteRecipes() {
 
       </Button>
 
-      <FavoriteCard recipe={ recipes } />
+      { recipes && <FavoriteCard recipe={ recipes } />}
     </>
   );
 }
