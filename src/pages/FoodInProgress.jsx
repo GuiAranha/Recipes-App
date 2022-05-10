@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useLocation, useHistory } from 'react-router-dom';
-import ShareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import ShareAndFavFood from '../components/ShareAndFav';
 import './FixedButton.css';
 import './FoodInProgess.css';
-
+// teste
 function FoodInProgress() {
   const [food, setFood] = useState('');
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [linkCopied, setLinkCopied] = useState(false);
   const [enableButton, setEnableButton] = useState(true);
   const location = useLocation();
   const history = useHistory();
@@ -49,16 +45,6 @@ function FoodInProgress() {
     history.push('/done-recipes');
   };
 
-  // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
-  const copyToClipboard = async () => {
-    await navigator.clipboard.writeText(`${window.location}`.split('/in-progress')[0]);
-    setLinkCopied(true);
-  };
-
-  const favoriteRecipe = () => {
-    setIsFavorite(!isFavorite);
-  };
-
   const verifyFinishButton = () => {
     const checked = document.querySelectorAll('input[type=checkbox]:checked').length;
     const allCheckbox = document.querySelectorAll('input[type=checkbox]').length;
@@ -81,22 +67,7 @@ function FoodInProgress() {
         {food[0].strMeal}
       </h1>
       <p data-testid="recipe-category">{food[0].strCategory}</p>
-      {linkCopied ? 'Link copied!'
-        : (
-          <input
-            onClick={ copyToClipboard }
-            data-testid="share-btn"
-            type="image"
-            src={ ShareIcon }
-            alt="ícone de compartilhamento"
-          />)}
-      <input
-        onClick={ favoriteRecipe }
-        data-testid="favorite-btn"
-        type="image"
-        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-        alt="ícone de coração para favoritar"
-      />
+      <ShareAndFavFood recipeContent={ food } />
       <h3>Ingredients</h3>
       {totalIngredients.map((element, index) => (
         <div key={ index } data-testid={ `${index}-ingredient-step` }>

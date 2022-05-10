@@ -36,7 +36,7 @@ function ShareAndFavDrink({ actualFood: food }) {
   }, []);
 
   const copyToClipboard = async () => {
-    await navigator.clipboard.writeText(`${window.location}`);
+    await navigator.clipboard.writeText(`${window.location}`.split('/in-progress')[0]);
     setLinkCopied(true);
   };
   const addToFavoriteRecipeState = () => {
