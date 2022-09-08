@@ -23,6 +23,7 @@ function Footer() {
   return (
     <footer data-testid="footer" className="footer">
       <input
+        className="drinks"
         data-testid="drinks-bottom-btn"
         type="image"
         src={ drinkIcon }
@@ -30,6 +31,7 @@ function Footer() {
         onClick={ drinksRedirect }
       />
       <input
+        className="explore"
         data-testid="explore-bottom-btn"
         type="image"
         src={ exploreIcon }
@@ -37,6 +39,7 @@ function Footer() {
         onClick={ exploreRedirect }
       />
       <input
+        className="food"
         data-testid="food-bottom-btn"
         type="image"
         src={ mealIcon }

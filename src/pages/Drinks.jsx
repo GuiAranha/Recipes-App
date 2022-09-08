@@ -4,6 +4,7 @@ import DrinkCategories from '../components/DrinkCategories';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MyContext from '../context/MyContext';
+import './drinks.css';
 
 function Drinks() {
   const { filteredDrink, drink, globalRender } = useContext(MyContext);
@@ -24,21 +25,30 @@ function Drinks() {
     <>
       <Header pageName="Drinks" needRender type="drink" />
       <DrinkCategories />
-      {filteredDrink
-      && drink.map((element, index) => (
-        <div key={ index } data-testid={ `${index}-recipe-card` }>
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ element.strDrinkThumb }
-            alt="food ilustration"
-          />
-          <p data-testid={ `${index}-card-name` }>
-            {element.strDrink}
-          </p>
+      <div>
+        <div className="container-cards">
+          {filteredDrink
+          && drink.map((element, index) => (
+            <div
+              className="container-card-child"
+              key={ index }
+              data-testid={ `${index}-recipe-card` }
+            >
+              <img
+                className="card-img"
+                data-testid={ `${index}-card-img` }
+                src={ element.strDrinkThumb }
+                alt="food ilustration"
+              />
+              <p className="card-name" data-testid={ `${index}-card-name` }>
+                {element.strDrink}
+              </p>
+            </div>
+          ))}
         </div>
-      ))}
-      {globalRender
-      && <DrinkCards />}
+        {globalRender
+        && <DrinkCards />}
+      </div>
       <Footer />
     </>
   );

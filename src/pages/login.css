@@ -6,7 +6,8 @@
 
 body {
   background-image: url('../images/backgroud.png');
-  background-repeat: no-repeat;
+
+  /* background-repeat: no-repeat; */
   color: white;
 }
 

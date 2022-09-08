@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import { fetchFoodApi, fetchDrinkApi } from '../services/fetchApi';
+import './searchBar.css';
 
 function SearchBar({ type }) {
   const { drink, setDrink, food,
@@ -93,9 +94,10 @@ function SearchBar({ type }) {
   };
 
   return (
-    <div>
+    <div className="container-search">
       <div>
         <input
+          className="search-input"
           data-testid="search-input"
           type="text"
           placeholder="Buscar"
@@ -104,7 +106,21 @@ function SearchBar({ type }) {
         />
       </div>
       <div>
-        <label htmlFor="ingredient-radio">
+        <button
+          className="search-btn"
+          data-testid="exec-search-btn"
+          type="button"
+          onClick={ searchClick }
+        >
+          Search
+
+        </button>
+      </div>
+      <div className="container-radios">
+        <label
+          htmlFor="ingredient-radio"
+          className="radio-input"
+        >
           <input
             data-testid="ingredient-search-radio"
             type="radio"
@@ -114,7 +130,10 @@ function SearchBar({ type }) {
           />
           Ingredient
         </label>
-        <label htmlFor="name-radio">
+        <label
+          htmlFor="name-radio"
+          className="radio-input"
+        >
           <input
             data-testid="name-search-radio"
             type="radio"
@@ -124,7 +143,10 @@ function SearchBar({ type }) {
           />
           Name
         </label>
-        <label htmlFor="first-letter-radio">
+        <label
+          htmlFor="first-letter-radio"
+          className="radio-input"
+        >
           <input
             data-testid="first-letter-search-radio"
             type="radio"
@@ -134,16 +156,6 @@ function SearchBar({ type }) {
           />
           First Letter
         </label>
-        <div>
-          <button
-            data-testid="exec-search-btn"
-            type="button"
-            onClick={ searchClick }
-          >
-            Search
-
-          </button>
-        </div>
       </div>
     </div>
   );

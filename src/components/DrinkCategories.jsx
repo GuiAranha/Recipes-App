@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react';
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
 import MyContext from '../context/MyContext';
 import { fetchDrinkApi } from '../services/fetchApi';
+import './categories.css';
 
 function DrinkCategories() {
   const { drinkCategories, setAllDrink } = useContext(MyContext);
@@ -29,18 +30,20 @@ function DrinkCategories() {
   };
 
   return (
-    <div>
-      <Button
+    <div className="container-categories">
+      <button
+        className="categories-btn"
         data-testid="All-category-filter"
         type="button"
         onClick={ selectAllDrink }
       >
         All
-      </Button>
+      </button>
 
       {drinkCategories.map(({ strCategory }, index) => (
         <div key={ index }>
-          <Button
+          <button
+            className="categories-btn"
             name={ strCategory }
             data-testid={ `${strCategory}-category-filter` }
             type="button"
@@ -48,7 +51,7 @@ function DrinkCategories() {
           >
             {strCategory}
 
-          </Button>
+          </button>
         </div>
       ))}
     </div>
